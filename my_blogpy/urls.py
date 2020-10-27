@@ -19,8 +19,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from my_blogpy.views import home_page
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_page,name='home_page'),
 ]
 
 

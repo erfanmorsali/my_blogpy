@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title> blogpy  |  {% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {% include 'shared/HeaderRefrences.html' %}
+
+</head>
+
+<body id="top">
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    {% include 'shared/Header.html' %}
+
+
+    <!-- featured
+    ================================================== -->
+    {% block content %}{% endblock %}
+    {% include 'shared/Footer.html' %}
+
+
+    <!-- Java Script
+    ================================================== -->
+    {% include 'shared/FooterRefrences.html' %}
+
+</body>
+
+</html>
