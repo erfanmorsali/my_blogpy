@@ -19,12 +19,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from my_blogpy.views import home_page, about_us
+from blogpy_articles.views import home_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+
     path('', home_page, name='home_page'),
-    path('about_us/', about_us, name='about_us'),
+    path('', include("blogpy_contact.urls")),
 ]
 
 if settings.DEBUG:

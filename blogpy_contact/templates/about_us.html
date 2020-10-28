@@ -1,0 +1,31 @@
+{% extends "shared/MainLayout.html" %}
+{% block title %}درباره ی ما{% endblock %}
+{% load static %}
+{% block content %}
+
+        <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep" style="direction: rtl">درباره {{ about.name }}</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-full s-content__main">
+                <p>
+                <img style="width: 1000px;" src="{{about.logo.url}}" alt="">
+                </p>
+
+                <h2 style="text-align:right">{{about.name}}</h2>
+
+                <p>
+                  {{ about.about_us }}
+                </p>
+
+                <hr>
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section>
+{% endblock %}

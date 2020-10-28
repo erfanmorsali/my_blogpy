@@ -1,0 +1,52 @@
+{% extends 'shared/MainLayout.html' %}
+{% block title %}تماس با ما{% endblock %}
+{% block content %}
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <div class="row narrow">
+            <div class="col-full s-content__header">
+                <h1 class="display-1 display-1--with-line-sep">با ما در تماس باشید</h1>
+                <p class="lead">
+                {{ about.about_us | linebreaks }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-full s-content__main">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4134.080598385499!2d50.95829659115555!3d35.788472725997075!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8dbf4ab7f3d171%3A0x9ca0fe5339337b8c!2z2KjYp9iy2KfYsSDYudmF2K_ZhyDZgdix2YjYtNin2YYg2b7Yp9iz2KfYsdqv2KfYrw!5e1!3m2!1sen!2s!4v1603868410793!5m2!1sen!2s" width="900" height="600" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+                <h2 style="text-align: right">{{ about.name }}</h2>
+
+                <p>
+                    {{ about.about_us | linebreaks }}
+
+                </p>
+
+
+
+                <div class="row">
+                    <div class="col-six tab-full">
+                        <h4 style="text-align: right;">ادرس ما</h4>
+
+                        <p>
+                        {{ about.address }}
+                        </p>
+
+                    </div>
+
+                    <div class="col-six tab-full">
+                        <h4 style="text-align: right">اطلاعات تماس</h4>
+
+                        <p>{{ about.email}}<br>
+                        {{ about.phone }}
+                        </p>
+
+                    </div>
+                </div>
+
+            </div> <!-- s-content__main -->
+        </div> <!-- end row -->
+
+    </section>
+{% endblock %}
