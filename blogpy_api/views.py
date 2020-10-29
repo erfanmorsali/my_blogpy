@@ -2,11 +2,12 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from blogpy_articles.models import Article, ArticleCategory
 from .serializers import ArticleSerializer, UserSerializer, ArticleCategorySerializer, ArticleSubmitSerializer, \
-    ArticleUpdateSerializer
+    ArticleUpdateSerializer, RegisterUserSerializer, LoginUserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import permissions
+from django.contrib.auth import authenticate, login
 
 
 class ArticleView(APIView):
@@ -134,3 +135,50 @@ class UserById(APIView):
             return Response(serializer.data, status.HTTP_200_OK)
         except:
             return Response({"status": "something's wrong"}, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class RegisterUser(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        try:
+            serializer = RegisterUserSerializer(data=request.data)
+            if serializer.is_valid():
+                user_name = serializer.data.get("username")
+                email = serializer.data.get("email")
+                password = serializer.data.get("password")
+                password2 = serializer.data.get("password2")
+                user = User.objects.filter(username=user_name).first()
+                user2 = User.objects.filter(email=email).first()
+                if user is not None:
+                    return Response({"data": "کاربری با این نام کاربری موجود میباشد"}, status.HTTP_400_BAD_REQUEST)
+                elif user2 is not None:
+                    return Response({"data": "کاربری با این نام ایمیل موجود میباشد"}, status.HTTP_400_BAD_REQUEST)
+                elif password != password2:
+                    return Response({"data": "کلمه های عبور مغایرت دارند"}, status.HTTP_400_BAD_REQUEST)
+                else:
+                    new_user = User.objects.create_user(email=email, username=user_name, password=password)
+                    return Response({"data": {"username": new_user.username, "email": new_user.email}},
+                                    status.HTTP_201_CREATED)
+        except:
+            return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class LoginUser(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        try:
+            serializer = LoginUserSerializer(data=request.data)
+            if serializer.is_valid():
+                user_name = serializer.data.get("username")
+                email = serializer.data.get("email")
+                password = serializer.data.get("password")
+                user = authenticate(username=user_name, email=email, password=password)
+                if user is not None:
+                    login(request, user)
+                    return Response({"data": "شما با موفقت وارد شدید"}, status.HTTP_200_OK)
+                else:
+                    return Response({"data" : "کاربری با این مشخصات یافت نشد"},status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

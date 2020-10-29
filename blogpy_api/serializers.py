@@ -25,6 +25,12 @@ class ArticleUpdateSerializer(serializers.Serializer):
     category_id = serializers.IntegerField(required=True, allow_null=False)
 
 
+class ArticleCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleCategory
+        fields = "__all__"
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -41,7 +47,14 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class ArticleCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ArticleCategory
-        fields = "__all__"
+class RegisterUserSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
+    email = serializers.EmailField(required=True, allow_blank=False, allow_null=False, max_length=100)
+    password = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
+    password2 = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
+
+
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
+    email = serializers.EmailField(required=True, allow_blank=False, allow_null=False, max_length=100)
+    password = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
