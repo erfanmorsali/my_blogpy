@@ -53,8 +53,3 @@ class RegisterUserSerializer(serializers.Serializer):
     password = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
     password2 = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
 
-
-class LoginUserSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)
-    email = serializers.EmailField(required=True, allow_blank=False, allow_null=False, max_length=100)
-    password = serializers.CharField(required=True, allow_blank=False, allow_null=False, max_length=50)

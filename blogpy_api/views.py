@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from blogpy_articles.models import Article, ArticleCategory
 from .serializers import ArticleSerializer, UserSerializer, ArticleCategorySerializer, ArticleSubmitSerializer, \
-    ArticleUpdateSerializer, RegisterUserSerializer, LoginUserSerializer
+    ArticleUpdateSerializer, RegisterUserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -164,21 +164,3 @@ class RegisterUser(APIView):
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class LoginUser(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request):
-        try:
-            serializer = LoginUserSerializer(data=request.data)
-            if serializer.is_valid():
-                user_name = serializer.data.get("username")
-                email = serializer.data.get("email")
-                password = serializer.data.get("password")
-                user = authenticate(username=user_name, email=email, password=password)
-                if user is not None:
-                    login(request, user)
-                    return Response({"data": "شما با موفقت وارد شدید"}, status.HTTP_200_OK)
-                else:
-                    return Response({"data" : "کاربری با این مشخصات یافت نشد"},status.HTTP_400_BAD_REQUEST)
-        except:
-            return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
