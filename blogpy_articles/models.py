@@ -1,9 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.db.models import Q
 
 
 # Create your models here.
+
+
+class ArticleManager(models.Manager):
+    def search(self, key):
+        lookup = (
+                Q(title__icontains=key) |
+                Q(description__icontains=key)
+        )
+        return self.get_queryset().filter(lookup).distinct()
+
 
 class ArticleCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام دسته بندی")
@@ -24,6 +35,8 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="نویسنده")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت مقاله")
     category = models.ForeignKey(ArticleCategory, on_delete=models.PROTECT, verbose_name="دسته بندی")
+
+    objects = ArticleManager()
 
     class Meta:
         verbose_name = "مقاله"
