@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'blogpy_articles',
     'blogpy_contact',
     'blogpy_api',
+    'blogpy_acoounts',
+    # third_party
     'ckeditor',
     'rest_framework',
+    'widget_tweaks',
+    'django_render_partial',
 ]
 
 MIDDLEWARE = [
