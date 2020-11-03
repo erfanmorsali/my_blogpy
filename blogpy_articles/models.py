@@ -35,7 +35,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="نویسنده")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت مقاله")
     category = models.ForeignKey(ArticleCategory, on_delete=models.PROTECT, verbose_name="دسته بندی")
-
+    special = models.BooleanField(default=False, verbose_name="پست ویژه")
     objects = ArticleManager()
 
     class Meta:
@@ -44,3 +44,16 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='نویسنده')
+    avatar = models.ImageField(upload_to="user_profile/", null=False, blank=False, verbose_name="تصویر نویسنده")
+    description = RichTextField(verbose_name="معرفی نویسنده")
+
+    class Meta:
+        verbose_name = "پروفایل نویسنده"
+        verbose_name_plural = "پروفایل های نویسندگان"
+
+    def __str__(self):
+        return self.user.get_full_name()

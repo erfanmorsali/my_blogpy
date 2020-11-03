@@ -26,9 +26,11 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api-auth/', include('rest_framework.urls')),
 
-    path('',include("blogpy_api.urls")),
     path('', home_page, name='home_page'),
+    path('', include("blogpy_api.urls")),
+
     path('', include("blogpy_contact.urls")),
+    path('', include("blogpy_acoounts.urls")),
 ]
 
 if settings.DEBUG:

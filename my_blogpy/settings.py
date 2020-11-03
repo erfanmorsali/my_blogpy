@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'blogpy_articles',
     'blogpy_contact',
     'blogpy_api',
+    'blogpy_acoounts',
+    # third_party
     'ckeditor',
     'rest_framework',
+    'widget_tweaks',
+    'django_render_partial',
 ]
 
 MIDDLEWARE = [
@@ -142,9 +146,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ]
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }

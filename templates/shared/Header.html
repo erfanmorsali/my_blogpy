@@ -1,31 +1,44 @@
+<!-- header
+================================================== -->
+<header class="s-header header">
 
-    <!-- header
-    ================================================== -->
-    <header class="s-header header">
+    <div class="header__logo">
+        <a class="logo" href="index.html">
+            BLOGPY
+        </a>
 
-        <div class="header__logo">
-            <a class="logo" href="index.html">
-                BLOGPY
-            </a>
+    </div> <!-- end header__logo -->
+    <a class="header__toggle-menu" href="#0" title="Menu"><span>منو</span></a>
+    <nav class="header__nav-wrap">
 
-        </div> <!-- end header__logo -->
-        <a class="header__toggle-menu" href="#0" title="Menu"><span>منو</span></a>
-        <nav class="header__nav-wrap">
+        <h2 class="header__nav-heading h6">هدایت به</h2>
 
-            <h2 class="header__nav-heading h6">هدایت به</h2>
-
-            <ul class="header__nav">
-                <li><a href="{% url 'contact_us' %}" title="">تماس</a></li>
+        <ul class="header__nav">
+            {#                <li><a href="{% url 'contact_us' %}" title="">تماس</a></li>#}
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" title="">خروج</a></li>
                 <li><a href="{% url 'about_us' %}" title="">درباره</a></li>
                 <li>
                     <a href="category.html" title="">دسته بندی</a>
                 </li>
 
-                              <li class="current"><a href="{% url 'home_page' %}" title="">خانه</a></li>
-            </ul> <!-- end header__nav -->
+                <li><a href="{% url 'home_page' %}" title="">خانه</a></li>
+                <li class="current"><a href="{% url 'user_profile' %}" title="">پروفایل</a></li>
 
-            <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">بستن</a>
+            {% else %}
+                <li><a href="{% url 'login_page' %}" title="">ورود</a></li>
+                <li><a href="{% url 'about_us' %}" title="">درباره</a></li>
+                <li>
+                    <a href="category.html" title="">دسته بندی</a>
+                </li>
 
-        </nav> <!-- end header__nav-wrap -->
+                <li class="current"><a href="{% url 'home_page' %}" title="">خانه</a></li>
+            {% endif %}
 
-    </header> <!-- s-header -->
+        </ul> <!-- end header__nav -->
+
+        <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">بستن</a>
+
+    </nav> <!-- end header__nav-wrap -->
+
+</header> <!-- s-header -->
